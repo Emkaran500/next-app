@@ -31,7 +31,7 @@ export function ProductCard({ product }: ProductCardProps) {
           {product.name.charAt(0).toUpperCase() +
             product.name.slice(1).toLowerCase()}
         </h3>
-        <p className="text-sm text-zinc-400">{product.price}</p>
+        <p className="text-sm text-zinc-400">${product.price}</p>
       </CardContent>
       <CardFooter className="flex gap-2">
         <Button className="flex-1 hover:bg-zinc-900 hover:text-white hover:border hover:border-white transition-all duration-200">
