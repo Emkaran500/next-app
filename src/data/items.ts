@@ -8,6 +8,7 @@ export const items = [
         description: "A complete skateboard ready to ride.",
         stockCount: 50,
         category: "Skateboards",
+        subcategory: "Desks",
         rating: 5,
     },
     {
@@ -19,6 +20,7 @@ export const items = [
         description: "A high-quality skateboard deck.",
         stockCount: 75,
         category: "Parts",
+        subcategory: "Desks",
         rating: 4,
     },
     {
@@ -30,17 +32,19 @@ export const items = [
         description: "Durable skateboard wheels for smooth rides.",
         stockCount: 100,
         category: "Parts",
+        subcategory: "Wheels",
         rating: 4,
     },
     {
         id: "4",
         name: "Skateboard Trucks",
         price: 40,
-        imageUrl: "https://images.unsplash.com/photo-1529153510182-75ced468f736?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3",
+        imageUrl: "https://images.unsplash.com/photo-1529153510182-75ced468f736?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         path: "/products/skateboard-trucks",
         description: "Sturdy skateboard trucks for better control.",
         stockCount: 60,
         category: "Parts",
+        subcategory: "Trucks",
         rating: 5,
     },
     {
@@ -52,6 +56,7 @@ export const items = [
         description: "High-speed skateboard bearings.",
         stockCount: 150,
         category: "Parts",
+        subcategory: "Bearings",
         rating: 4,
     },
     {
@@ -63,6 +68,7 @@ export const items = [
         description: "Durable grip tape for better traction.",
         stockCount: 200,
         category: "Parts",
+        subcategory: "Griptape",
         rating: 4,
     },
     {
@@ -74,6 +80,7 @@ export const items = [
         description: "A complete bike ready to ride.",
         stockCount: 30,
         category: "Bikes",
+        subcategory: "Hardware",
         rating: 5,
     },
     {
@@ -85,6 +92,19 @@ export const items = [
         description: "A high-quality bike frame.",
         stockCount: 40,
         category: "Parts",
+        subcategory: "Hardware",
         rating: 3,
     },
+    {
+        id: "9",
+        name: "Skateboard Tool Set",
+        price: 25,
+        imageUrl: "https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg",
+        path: "/products/skateboard-tool-set",
+        description: "A complete tool set for skateboard maintenance.",
+        stockCount: 80,
+        category: "Tools",
+        subcategory: "Tools",
+        rating: 4,
+    }
 ];
