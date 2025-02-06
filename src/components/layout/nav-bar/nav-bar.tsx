@@ -17,7 +17,6 @@ import { cn } from "@/lib/utils";
 import { Sidebar } from "@/components/shared/sidebar";
 
 import { NavBarProps } from "@/components/helpers/interfaces/nav-bar";
-// import { navbar } from "@/data/navbar";
 
 export async function NavBar() {
   const response = await fetch(`${process.env.API_HOST}/nav-bar`);
