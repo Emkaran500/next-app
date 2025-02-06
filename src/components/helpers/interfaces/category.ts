@@ -1,5 +1,5 @@
 export interface CategoryProps {
-    id: string
+    id: number
     title: string
     href: string
     description: string
