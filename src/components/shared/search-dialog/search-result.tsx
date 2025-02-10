@@ -20,7 +20,10 @@ export default function SearchResult({ result, onSelect }: SearchProductProps) {
               className="object-cover"
             />
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col bg-transparent p-1 rounded-md border border-gray-400 ">
+            <span className="text-amber-400">${product.price}</span>
+          </div>
+          <div className="flex flex-col gap-1">
             <span>{product.name}</span>
             <span className="text-xs text-zinc-400">{product.description}</span>
           </div>

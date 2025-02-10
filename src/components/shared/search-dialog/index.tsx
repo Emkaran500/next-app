@@ -21,6 +21,7 @@ import { useRouter } from "next/navigation";
 import { IoSearchOutline } from "react-icons/io5";
 import SearchResult from "./search-result";
 import SearchSuggestion from "./search-suggestion";
+import { CategoryProps } from "@/components/helpers/interfaces/category";
 
 export function SearchDialog() {
   const router = useRouter();
@@ -59,6 +60,11 @@ export function SearchDialog() {
     setOpen(false);
   };
 
+  const handleCategorySelect = (category: CategoryProps) => {
+    router.push(category.href);
+    setOpen(false);
+  };
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -82,7 +88,9 @@ export function SearchDialog() {
           />
           <CommandList>
             {searchQuery.trim() === "" ? (
-              <SearchSuggestion />
+              <SearchSuggestion 
+                onSelect={handleCategorySelect}
+              />
             ) : searchResult.length > 0 ? (
               <SearchResult
                 result={searchResult}
