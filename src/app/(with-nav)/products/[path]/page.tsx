@@ -5,6 +5,7 @@ import { Heart, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { ProductCard } from "@/components/shared/product-card";
+import CardAction from "@/components/shared/card-action";
 
 interface ProdProps {
   params: Promise<{
@@ -73,23 +74,9 @@ export default async function ProductCategory({ params }: ProdProps) {
                   />
                 ))}
               </div>
-              <Button className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 size-8 shrink-0">
-                <Heart className="w-4 h-4" />
-              </Button>
             </div>
 
-
-            <form className="flex max-w-[260px] gap-4 flex-col">
-              <QuantitySelector />
-              <div className="flex items-center space-x-2.5">
-                <Button className="flex-1 bg-white hover:bg-zinc-200">
-                  Buy now{" "}
-                </Button>
-                <Button variant={"outline"} className="flex-1 border-zinc-800">
-                  Add to card
-                </Button>
-              </div>
-            </form>
+            {product ? <CardAction product={product} /> : <p>Product not found</p>}
 
             <div className="shrink-0 bg-border h-px w-full mt-5" role="none"></div>
 

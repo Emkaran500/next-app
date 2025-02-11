@@ -1,22 +1,46 @@
 "use client";
 
+import { useProductStore } from "@/app/store";
+import { ItemProps } from "@/components/helpers/interfaces/items";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { MinusIcon, PlusIcon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface QuantitySelectorProps {
-  initialValue?: number;
+  product: ItemProps;
 }
 
 export default function QuantitySelector({
-  initialValue = 1,
+  product
 }: QuantitySelectorProps) {
-  const [quantity, setQuantity] = useState(initialValue);
+  const { setProducts, setPossibleAddition } = useProductStore();
+  const [count, setCount] = useState(product.quantity);
 
-  const increment = () => setQuantity((prev) => prev + 1);
-  const decrement = () =>
-    setQuantity((prev) => Math.max(prev > 1 ? prev - 1 : 1));
+  useEffect(() => {
+    setCount(count);
+  }, [count]);
+
+  const increment = () => {
+    setCount((c) => c + 1)
+    setPossibleAddition(() => count + 1)
+    setProducts((prev) =>
+      prev.map((p) =>
+        p.id === product.id ? { ...p, quantity: count + 1 } : p
+      )
+    );
+  };
+
+  const decrement = () => {
+    if (count > 1) {
+      setCount((c) => c - 1)
+      setPossibleAddition(() => count - 1)
+      setProducts((prev) =>
+      prev.map((p) =>
+        p.id === product.id ? { ...p, quantity: count - 1 } : p
+      )
+    );
+    }
+  };
 
   return (
     <div className="flex items-center gap-4">
@@ -29,12 +53,7 @@ export default function QuantitySelector({
         >
           <MinusIcon className="w-4 h-4" />
         </Button>
-        <Input
-          min="1"
-          value={quantity}
-          onChange={(e) => setQuantity(parseInt(e.target.value) || 1)}
-          className="w-16 rounded-none text-center border-x-0"
-        />
+        <span className="mx-3">{count}</span>
         <Button
           variant="outline"
           size="icon"
