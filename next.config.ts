@@ -8,7 +8,8 @@ const nextConfig: NextConfig = {
       "plus.unsplash.com", 
       "comodosslstore.com", 
       "img.freepik.com",
-      "upload.wikimedia.org"
+      "upload.wikimedia.org",
+      "avatars.githubusercontent.com"
     ]
   }
 };
