@@ -18,5 +18,4 @@ export interface ItemProps {
     subcategory: string;
     rating: number;
     quantity: number;
-    possibleAddition: number;
 }
