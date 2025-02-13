@@ -5,13 +5,14 @@ import QuantitySelector from "../quantity-selector";
 import { Button } from "@/components/ui/button";
 import { Heart } from "lucide-react";
 import { useProductStore } from "@/app/store";
+import { ProductProps } from "@/components/helpers/interfaces/product";
 
-export default function CardAction({ product }: { product: ItemProps }) {
+export default function CardAction({ product }: { product: ItemProps | ProductProps }) {
   const { products, possibleAddition, setProducts } = useProductStore();
 
   const addProducts = (
     event: React.MouseEvent<HTMLButtonElement>,
-    product: ItemProps
+    product: ItemProps | ProductProps
     ) => {
     event.preventDefault();
     setProducts((prev) => {

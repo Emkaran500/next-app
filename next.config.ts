@@ -9,7 +9,9 @@ const nextConfig: NextConfig = {
       "comodosslstore.com", 
       "img.freepik.com",
       "upload.wikimedia.org",
-      "avatars.githubusercontent.com"
+      "avatars.githubusercontent.com",
+      "motobros.com",
+      "www.freeiconspng.com"
     ]
   }
 };
