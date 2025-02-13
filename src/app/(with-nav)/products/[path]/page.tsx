@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ProductCard } from "@/components/shared/product-card";
 import CardAction from "@/components/shared/card-action";
+import { ProductProps } from "@/components/helpers/interfaces/product";
 
 interface ProdProps {
   params: Promise<{
@@ -16,12 +17,12 @@ interface ProdProps {
 export default async function ProductCategory({ params }: ProdProps) {
   const { path } = await params;
 
-  const response = await fetch(`${process.env.API_HOST}/items`);
+  const response = await fetch(`${process.env.API_HOST}/products`);
   if (!response.ok) {
     throw new Error("Failed to load items data");
   }
 
-  const items: ItemProps[] = await response.json();
+  const items: ItemProps[] | ProductProps[] = await response.json();
 
   const product = items
     .flatMap((item) => item)
@@ -101,7 +102,7 @@ export default async function ProductCategory({ params }: ProdProps) {
             <div className="size-full rounded-[inherit]">
                 <div className="min-width: 100%; display: table;">
                   <div className="flex gap-4">
-                  {items.map((product: ItemProps) => (
+                  {items.map((product: ItemProps | ProductProps) => (
                     <Link key={product.id} href={product.path} className="border bg-card text-card-foreground shadow size-full overflow-hidden rounded-lg min-w-[260px]">
                       <ProductCard product={product} />
                     </Link>

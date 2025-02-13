@@ -2,6 +2,7 @@ import { NavBarProps } from "@/components/helpers/interfaces/nav-bar";
 import { ItemProps } from "@/components/helpers/interfaces/items";
 import { ProductCard } from "@/components/shared/product-card";
 import Link from "next/link";
+import { ProductProps } from "@/components/helpers/interfaces/product";
 
 interface PageProps {
   params: Promise<{
@@ -10,25 +11,16 @@ interface PageProps {
   }>;
 }
 
-export default async function ProductPage({ params }: PageProps) {
+export default async function SubCategories({ params }: PageProps) {
   const { category, href } = await params;
 
-  const response = await fetch(`${process.env.API_HOST}/nav-bar`);
-  const responseItems = await fetch(`${process.env.API_HOST}/items`);
-  const items = await responseItems.json();
-  
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/docs/${category}/${href}`);  
 
   if (!response.ok) {
-    throw new Error("Failed to load navbar data");
+    throw new Error("Failed to load product data");
   }
 
-  const navbar: NavBarProps[] = await response.json();
-
-  const product = navbar
-    .flatMap((product) => product.items)
-    .find((item) => item.href === `/docs/${category}/${href}`);
-
-  
+  const product = await response.json()
 
   if (!product)
     return (
@@ -49,10 +41,9 @@ export default async function ProductPage({ params }: PageProps) {
       </div>
 
       <div className="grid gap-6 mt-8 sm:grid-cols-2 lg:grid-cols-4">
-        {items.map((element: ItemProps) => (
-          element.subcategory == product.title &&
-          <Link key={element.id} href={element.path}>
-            <ProductCard product={element} />
+        {product.map((element: ProductProps) => (
+          <Link key={element.id} href={element.path ?? "/"}>
+            <ProductCard key={element.id} product={element} />
           </Link>
         ))}
       </div>

@@ -10,22 +10,20 @@ import {
 import { CategoryProps } from "@/components/helpers/interfaces/category";
 import { Eye } from "lucide-react";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
 import { useProductStore } from "@/app/store";
+import { ProductProps } from "@/components/helpers/interfaces/product";
 
 interface ProductCardProps {
-  product: ItemProps | CategoryProps;
+  product: ItemProps | CategoryProps | ProductProps;
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const pathname = usePathname();
-  const isDocs = pathname.startsWith("/docs");
 
   const { products, setProducts } = useProductStore();
 
   const addProducts = (
     event: React.MouseEvent<HTMLButtonElement>,
-    product: ItemProps
+    product: ItemProps | ProductProps
   ) => {
     event.preventDefault();
     setProducts((prev) => {
@@ -45,6 +43,11 @@ export function ProductCard({ product }: ProductCardProps) {
     setProducts((prev) => prev.filter((prod) => prod.id !== id));
   };
 
+  if ("imageUrl" in product)
+  {
+    console.log(product.imageUrl)
+  }
+
   return (
     <Card className="rounded-lg border bg-zinc-900">
       <CardHeader className="p-0">
@@ -63,18 +66,17 @@ export function ProductCard({ product }: ProductCardProps) {
       </CardHeader>
       <CardContent className="p-4">
         <h3 className="font-medium text-lg">
-          {!isDocs && "name" in product
+          {"name" in product
             ? `${product.name.charAt(0).toUpperCase()}${product.name
-                .slice(1)
-                .toLowerCase()}`
+                .slice(1)}`
             : "title" in product
             ? product.title
             : ""}
         </h3>
-        {!isDocs && "price" in product && (
+        {"price" in product && (
           <p className="text-sm text-zinc-400">${product.price}</p>
         )}
-        {isDocs && "description" in product && (
+        {"description" in product && (
           <p className="text-sm text-zinc-400">{product.description}</p>
         )}
       </CardContent>

@@ -2,12 +2,13 @@
 
 import { useProductStore } from "@/app/store";
 import { ItemProps } from "@/components/helpers/interfaces/items";
+import { ProductProps } from "@/components/helpers/interfaces/product";
 import { Button } from "@/components/ui/button";
 import { MinusIcon, PlusIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface QuantitySelectorProps {
-  product: ItemProps;
+  product: ItemProps | ProductProps;
 }
 
 export default function QuantitySelector({
