@@ -5,25 +5,25 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
 import { Github } from "lucide-react";
-
 import Link from "next/link";
-
 import { HiOutlineCube } from "react-icons/hi";
 import { GoArrowRight } from "react-icons/go";
 import { ProductCard } from "@/components/shared/product-card";
-import { ItemProps } from "@/components/helpers/interfaces/items";
-
 import { navbar } from "@/data/navbar";
+import { ProductProps } from "@/components/helpers/interfaces/product";
 
 export default async function Main() {
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/products`);
   const items = await response.json();
-  let featuredItems = []
+  let featuredItems: ProductProps[];
+  featuredItems = [];
   while (featuredItems.length < 8)
   {
     var product = items[Math.floor(Math.random()*items.length)];
+    if (featuredItems.find((item) => item.id == product.id))
+      continue
+
     featuredItems.push(product);
   }
 
@@ -106,7 +106,7 @@ export default async function Main() {
           </div>
         </div>
         <div className="grid gap-6 mt-8 sm:grid-cols-2 lg:grid-cols-4">
-          {featuredItems.map((product: ItemProps) => (
+          {featuredItems.map((product: ProductProps) => (
             <Link key={product.id} href={product.path}>
               <ProductCard product={product} />
             </Link>

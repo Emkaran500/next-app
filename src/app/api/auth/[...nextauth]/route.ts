@@ -1,5 +1,6 @@
 import NextAuth, { DefaultSession, AuthOptions } from "next-auth"
 import GitHubProvider from "next-auth/providers/github"
+import GoogleProvider from "next-auth/providers/google"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { prisma } from "../../../../../prisma/prisma-client"
 import bcrypt from "bcryptjs"
@@ -18,6 +19,10 @@ export const authOptions: AuthOptions = {
     GitHubProvider({
       clientId: process.env.GITHUB_ID || "",
       clientSecret: process.env.GITHUB_SECRET || ""
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_ID || "",
+      clientSecret: process.env.GOOGLE_SECRET || ""
     }),
     CredentialsProvider({
       name: "Credentials",
@@ -42,7 +47,8 @@ export const authOptions: AuthOptions = {
           return {
             id: String(user.id),
             email: user.email,
-            name: user.fullName
+            name: user.fullName,
+            image: user.image
           }
         } catch {
           return null
@@ -59,6 +65,27 @@ export const authOptions: AuthOptions = {
         session.user.id = token.sub as string
       }
       return session
+    },
+    async signIn({ profile }) {
+      if (!profile?.email)
+        return false
+
+      await prisma.user.upsert({
+        where: { email: profile.email },
+        update: {
+          email: profile.email,
+          fullName: profile.name || "Unknown",
+          image: profile.image
+        },
+        create: {
+          email: profile.email,
+          fullName: profile.name || "Unknown",
+          image: profile.image || "https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg",
+          password: "defaultPassword"
+        }
+      });
+
+      return true
     }
   },
   session: {

@@ -19,7 +19,7 @@ export default function ProfileButton() {
             <AvatarImage
               src={
                 session.user?.image ??
-                "https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3396.jpg?semt=ais_hybrid"
+                "https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg"
               }
               alt={session.user?.name ?? "user"}
             />
