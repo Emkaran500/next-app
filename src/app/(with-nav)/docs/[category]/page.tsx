@@ -1,10 +1,5 @@
 import Link from "next/link";
-import { RxRocket } from "react-icons/rx";
-import classes from "./category-page.module.css";
-import minion from "@/assets/minion/minik.png";
-import Image from "next/image";
 import ProductsContainer from "@/components/shared/products-container";
-import { ProductCard } from "@/components/shared/product-card";
 import { CategoryProps } from "@/components/helpers/interfaces/category";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -18,14 +13,10 @@ export default async function CategoryPage({ params }: Props) {
   const { category } = await params;
 
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_HOST}/docs/${category}`
+    `${process.env.API_HOST}/docs/${category}`
   );
   
-  console.log(`${process.env.NEXT_PUBLIC_API_HOST}/docs/${category}`);
-  
   const items = await response.json();
-
-  console.log(items);
 
   return (
     <div className="container mt-10 flex flex-col gap-8">
@@ -56,7 +47,7 @@ export default async function CategoryPage({ params }: Props) {
         ))}
       </div>
 
-      <ProductsContainer />
+      <ProductsContainer params={{category: category}}/>
     </div>
   );
 }

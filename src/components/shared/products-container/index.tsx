@@ -1,15 +1,22 @@
 "use client";
 
 import { ItemProps } from "@/components/helpers/interfaces/items";
-
 import { fetcher } from "@/utils/fetcher";
 import Link from "next/link";
 import useSWR from "swr";
 import { ProductCard } from "../product-card";
 
-export default function ProductsContainer() {
+interface Props {
+  params: {
+    category: string;
+  };
+}
+
+export default function ProductsContainer({ params }: Props) {
+  const { category } = params;
+
   const { data, error, isLoading } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_HOST}/items`,
+    `${process.env.NEXT_PUBLIC_API_HOST}/products/${category}`,
     fetcher
   );
   const items = data as ItemProps[];

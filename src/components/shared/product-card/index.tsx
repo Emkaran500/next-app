@@ -43,11 +43,6 @@ export function ProductCard({ product }: ProductCardProps) {
     setProducts((prev) => prev.filter((prod) => prod.id !== id));
   };
 
-  if ("imageUrl" in product)
-  {
-    console.log(product.imageUrl)
-  }
-
   return (
     <Card className="rounded-lg border bg-zinc-900">
       <CardHeader className="p-0">
@@ -77,7 +72,7 @@ export function ProductCard({ product }: ProductCardProps) {
           <p className="text-sm text-zinc-400">${product.price}</p>
         )}
         {"description" in product && (
-          <p className="text-sm text-zinc-400">{product.description}</p>
+          <p className="text-sm text-zinc-400 truncate">{product.description}</p>
         )}
       </CardContent>
       <CardFooter className="flex gap-2">
