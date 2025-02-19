@@ -18,8 +18,14 @@ import { ItemProps } from "@/components/helpers/interfaces/items";
 import { navbar } from "@/data/navbar";
 
 export default async function Main() {
-  const response = await fetch(`${process.env.API_HOST}/items`);
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/products`);
   const items = await response.json();
+  let featuredItems = []
+  while (featuredItems.length < 8)
+  {
+    var product = items[Math.floor(Math.random()*items.length)];
+    featuredItems.push(product);
+  }
 
   return (
     <main className="container">
@@ -100,7 +106,7 @@ export default async function Main() {
           </div>
         </div>
         <div className="grid gap-6 mt-8 sm:grid-cols-2 lg:grid-cols-4">
-          {items.map((product: ItemProps) => (
+          {featuredItems.map((product: ItemProps) => (
             <Link key={product.id} href={product.path}>
               <ProductCard product={product} />
             </Link>

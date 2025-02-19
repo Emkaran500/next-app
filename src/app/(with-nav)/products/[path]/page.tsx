@@ -1,7 +1,5 @@
 import { ItemProps } from "@/components/helpers/interfaces/items";
-import QuantitySelector from "@/components/shared/quantity-selector";
-import { Button } from "@/components/ui/button";
-import { Heart, Star } from "lucide-react";
+import { Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { ProductCard } from "@/components/shared/product-card";
