@@ -62,7 +62,9 @@ export default function SignIn() {
                   Choose your preferred sign in method
                   <div className="flex flex-col items-center space-y-4 mt-5">
                     <div className="flex w-full space-x-4">
-                      <Button className="flex items-center justify-center w-1/2 border bg-transparent text-white font-semibold hover:text-black">
+                      <Button
+                        onClick={() => signIn("google", { callbackUrl: "/" })} 
+                        className="flex items-center justify-center w-1/2 border bg-transparent text-white font-semibold hover:text-black">
                         <FaGoogle /> Google
                       </Button>
                       <Button

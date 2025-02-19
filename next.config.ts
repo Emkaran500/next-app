@@ -11,7 +11,8 @@ const nextConfig: NextConfig = {
       "upload.wikimedia.org",
       "avatars.githubusercontent.com",
       "motobros.com",
-      "www.freeiconspng.com"
+      "www.freeiconspng.com",
+      "static.vecteezy.com"
     ]
   }
 };

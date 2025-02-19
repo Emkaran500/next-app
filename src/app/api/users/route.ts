@@ -38,6 +38,7 @@ export async function POST(req: NextRequest) {
             data: {
                 fullName,
                 email,
+                image: "https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg",
                 password: hashedPassword
             },
             select: {
