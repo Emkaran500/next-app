@@ -13,7 +13,7 @@ export interface ItemProps {
     imageUrl: string;
     path: string;
     description: string;
-    stockCount: string;
+    stockCount: number;
     category: string;
     subcategory: string;
     rating: number;

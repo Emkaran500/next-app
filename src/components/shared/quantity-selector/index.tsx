@@ -4,8 +4,9 @@ import { useProductStore } from "@/app/store";
 import { ItemProps } from "@/components/helpers/interfaces/items";
 import { ProductProps } from "@/components/helpers/interfaces/product";
 import { Button } from "@/components/ui/button";
+import { ProductContext } from "@/utils/contexts/ProductContext";
 import { MinusIcon, PlusIcon } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 interface QuantitySelectorProps {
   product: ItemProps | ProductProps;
@@ -14,32 +15,44 @@ interface QuantitySelectorProps {
 export default function QuantitySelector({
   product
 }: QuantitySelectorProps) {
-  const { setProducts, setPossibleAddition } = useProductStore();
+  const { products, setPossibleAddition } = useProductStore();
   const [count, setCount] = useState(product.quantity);
-
+  const funcCanAdd = useContext(ProductContext).funcCanAdd;
+  const howMany = useContext(ProductContext).howMany;
+  const funcHowMany = useContext(ProductContext).funcHowMany;
   useEffect(() => {
     setCount(count);
   }, [count]);
 
   const increment = () => {
-    setCount((c) => c + 1)
-    setPossibleAddition(() => count + 1)
-    setProducts((prev) =>
-      prev.map((p) =>
-        p.id === product.id ? { ...p, quantity: count + 1 } : p
-      )
-    );
+    if (count < product.stockCount)
+    {
+      const storeProduct = products.find((el) => el.id === product.id)
+      setCount((c) => c + 1)
+      setPossibleAddition(() => count + 1)
+      console.log(howMany + 1)
+      if (storeProduct && storeProduct?.quantity < count + 1)
+      {
+        funcHowMany(howMany + 1)
+        funcCanAdd(true)
+      }
+    }
   };
 
   const decrement = () => {
     if (count > 1) {
+      const storeProduct = products.find((el) => el.id === product.id)
       setCount((c) => c - 1)
       setPossibleAddition(() => count - 1)
-      setProducts((prev) =>
-      prev.map((p) =>
-        p.id === product.id ? { ...p, quantity: count - 1 } : p
-      )
-    );
+      if (storeProduct && storeProduct?.quantity >= count - 1)
+      {
+        funcCanAdd(false)
+      }
+      if (storeProduct && storeProduct?.quantity < count - 1)
+      {
+        console.log(howMany - 1)
+        funcHowMany(howMany - 1)
+      }
     }
   };
 
