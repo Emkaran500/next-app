@@ -14,18 +14,17 @@ export async function POST(req: NextRequest) {
 
         const result = formRegisterSchema.safeParse(body)
 
-
         if (!result.success) {
             return NextResponse.json({ error: "Invalid data" }, { status: 400 })
         }
 
         const { email, password, fullName } = result.data
 
-        const exitingUser = await prisma.user.findUnique({
+        const existingUser = await prisma.user.findUnique({
             where: { email }
         })
 
-        if (exitingUser) {
+        if (existingUser) {
             return NextResponse.json(
                 { error: "Email already in use" },
                 { status: 400 }

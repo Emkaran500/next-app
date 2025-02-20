@@ -7,7 +7,7 @@ export interface ProductProps {
     price: number;
     description: string;
     imageUrl: string;
-    stockCount: string;
+    stockCount: number;
     rating: number;
     quantity: number;
   }

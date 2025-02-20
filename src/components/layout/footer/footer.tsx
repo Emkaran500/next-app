@@ -5,7 +5,7 @@ import { SendHorizonal, Github, MoonStar } from "lucide-react";
 
 export async function Footer() {
     return (
-        <div className="w-full border-t bg-background">
+        <footer className="w-full border-t bg-background">
             <div className="grid items-center gap-8 pb-8 pt-6 lg:py-6 container">
                 <div className="flex flex-col gap-10 lg:flex-row lg:gap-20">
                     <div>
@@ -163,6 +163,6 @@ export async function Footer() {
                     </div>
                 </div>
             </div> 
-        </div>
+        </footer>
   );
 }

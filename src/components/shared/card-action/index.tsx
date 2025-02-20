@@ -6,9 +6,23 @@ import { Button } from "@/components/ui/button";
 import { Heart } from "lucide-react";
 import { useProductStore } from "@/app/store";
 import { ProductProps } from "@/components/helpers/interfaces/product";
+import { useState } from "react";
+import { ProductContext } from "@/utils/contexts/ProductContext";
 
 export default function CardAction({ product }: { product: ItemProps | ProductProps }) {
   const { products, possibleAddition, setProducts } = useProductStore();
+  const [canAdd, setCanAdd] = useState(false);
+  const [howMany, setHowMany] = useState(0);
+
+  function funcCanAdd(state: boolean)
+  {
+    setCanAdd(state)
+  }
+
+  function funcHowMany(state: number)
+  {
+    setHowMany(state)
+  }
 
   const addProducts = (
     event: React.MouseEvent<HTMLButtonElement>,
@@ -30,12 +44,51 @@ export default function CardAction({ product }: { product: ItemProps | ProductPr
     id: number
     ) => {
     event.preventDefault();
-    setProducts((prev) => prev.filter((prod) => prod.id !== id));
-  };
+    setProducts((prev) => {
+      const current = prev.find((p) => p.id === id);
+      if (current)
+        current.quantity = 1;
+      
+      prev = prev.filter((prod) => prod.id !== id)
+      return prev
+    });
+    setCanAdd(false)
+    };
+  
+  const addMoreProducts = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    id: number
+    ) => {
+      event.preventDefault();
+      setProducts((prev) => {
+        const current = prev.find((p) => p.id === id);
+        if (current)
+        {
+          current.quantity = current.quantity + howMany
+          setHowMany(0)
+        }
+        return prev
+      });
+      setCanAdd(false)
+    };
+  
 
   return (
     <div className="flex max-w-[260px] gap-4 flex-col">
-      <QuantitySelector product={product}/>
+      <ProductContext value={ {funcCanAdd, howMany, funcHowMany} }>
+        <QuantitySelector product={product}/>
+      </ProductContext>
+
+      <div className="flex">
+        {canAdd &&
+        <Button
+          variant={"outline"}
+          className="flex-1 bg-white border-zinc-800 text-black font-bold"
+          onClick={(event) => addMoreProducts(event, product.id)}
+          >
+          Add More!
+        </Button>}
+      </div>
 
       <div className="flex items-center space-x-2.5">
         <Button className="flex-1 bg-white hover:bg-zinc-200">Buy now </Button>

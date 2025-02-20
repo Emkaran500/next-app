@@ -38,11 +38,13 @@ export const authOptions: AuthOptions = {
             where: { email: credentials.email }
           })
 
+
           if (!user) return null
+
 
           const passwordCompare = await bcrypt.compare(credentials.password, user.password)
           if (!passwordCompare) return null
-
+          
 
           return {
             id: String(user.id),
@@ -67,25 +69,31 @@ export const authOptions: AuthOptions = {
       return session
     },
     async signIn({ profile }) {
-      if (!profile?.email)
+      try {
+        if (!profile?.email)
+          return true
+
+        await prisma.user.upsert({
+          where: { email: profile.email },
+          update: {
+            email: profile.email,
+            fullName: profile.name || "Unknown",
+            //@ts-ignore
+            image: profile.picture
+          },
+          create: {
+            email: profile.email,
+            fullName: profile.name || "Unknown",
+            //@ts-ignore
+            image: profile.picture || "https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg",
+            password: await bcrypt.hash("defaultPassword", 10)
+          }
+        });
+
+        return true
+      } catch (error) {
         return false
-
-      await prisma.user.upsert({
-        where: { email: profile.email },
-        update: {
-          email: profile.email,
-          fullName: profile.name || "Unknown",
-          image: profile.image
-        },
-        create: {
-          email: profile.email,
-          fullName: profile.name || "Unknown",
-          image: profile.image || "https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg",
-          password: "defaultPassword"
-        }
-      });
-
-      return true
+      }
     }
   },
   session: {
