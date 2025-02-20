@@ -1,10 +1,11 @@
 import { ItemProps } from "@/components/helpers/interfaces/items";
+import { ProductProps } from "@/components/helpers/interfaces/product";
 import { CommandGroup, CommandItem } from "@/components/ui/command";
 import Image from "next/image";
 
 interface SearchProductProps {
-  result: ItemProps[];
-  onSelect: (product: ItemProps) => void;
+  result: ProductProps[];
+  onSelect: (product: ProductProps) => void;
 }
 
 export default function SearchResult({ result, onSelect }: SearchProductProps) {

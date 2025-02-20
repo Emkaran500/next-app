@@ -14,7 +14,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-import { ItemProps } from "@/components/helpers/interfaces/items";
 import { Button } from "@/components/ui/button";
 import { searchProducts } from "@/utils/actions/search-products";
 import { useRouter } from "next/navigation";
@@ -22,12 +21,13 @@ import { IoSearchOutline } from "react-icons/io5";
 import SearchResult from "./search-result";
 import SearchSuggestion from "./search-suggestion";
 import { CategoryProps } from "@/components/helpers/interfaces/category";
+import { ProductProps } from "@/components/helpers/interfaces/product";
 
 export function SearchDialog() {
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
   const [searchQuery, setSearchQuery] = React.useState("");
-  const [searchResult, setSearchResult] = React.useState<ItemProps[]>([]);
+  const [searchResult, setSearchResult] = React.useState<ProductProps[]>([]);
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -55,7 +55,7 @@ export function SearchDialog() {
     }, 250);
   }, [searchQuery]);
 
-  const handleProductSelect = (product: ItemProps) => {
+  const handleProductSelect = (product: ProductProps) => {
     router.push(product.path);
     setOpen(false);
   };

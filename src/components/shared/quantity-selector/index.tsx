@@ -30,7 +30,6 @@ export default function QuantitySelector({
       const storeProduct = products.find((el) => el.id === product.id)
       setCount((c) => c + 1)
       setPossibleAddition(() => count + 1)
-      console.log(howMany + 1)
       if (storeProduct && storeProduct?.quantity < count + 1)
       {
         funcHowMany(howMany + 1)
@@ -50,7 +49,6 @@ export default function QuantitySelector({
       }
       if (storeProduct && storeProduct?.quantity < count - 1)
       {
-        console.log(howMany - 1)
         funcHowMany(howMany - 1)
       }
     }
